@@ -1,0 +1,27 @@
+name: HonorPoints
+main: bourg.austin.HonorPoints.HonorPoints
+version: 0
+
+commands:
+  honor:
+    description: 'The root command for the Honor Points Plugin'
+    usage: '/<command> put bullshit here'
+    permission-message: 'You don''t have <permission>'
+
+permissions:
+  honor.manipulate:
+    description: Gives access to /honor (add/give), /honor (take/deduct), and /honor set
+    default: op
+
+  honor.view.*:
+    description: Gives access to all honor viewing commands
+    default: op
+    children:
+      honor.view.other: true
+      honor.view.self: true
+  honor.view.other:
+    description: Gives access to /honor (view/see)
+    default: op
+  honor.view.self:
+    description: Gives access to /honor
+    default: true
