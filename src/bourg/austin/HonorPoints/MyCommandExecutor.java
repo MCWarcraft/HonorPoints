@@ -162,6 +162,42 @@ public class MyCommandExecutor implements CommandExecutor
 					else if (sender.hasPermission("honor.view.other"))
 						sender.sendMessage(ChatColor.RED + "/honor (view/see) <player>");
 				}
+				//If the sender is trying to set the multipler
+				else if (args[0].equalsIgnoreCase("setmultiplier"))
+				{
+					//If the sender isn't a player
+					if (!(sender instanceof Player))
+					{
+						//If there are enough args
+						if (args.length == 3)
+						{
+							//If the player being manipulated is in the database
+							if (DatabaseOperations.isPlayerInTable(Bukkit.getOfflinePlayer(args[1])))
+							{
+								double multiplier = -1;
+								try {multiplier = Double.parseDouble(args[2]);} catch (NumberFormatException e){sender.sendMessage(ChatColor.RED + "The multiplier must be a valid double."); return true;}
+								//If the multiplier is bigger than 0
+								if (multiplier > 0)
+								{
+									DatabaseOperations.setMultiplier(Bukkit.getOfflinePlayer(args[1]), multiplier);
+									sender.sendMessage(args[0] + ChatColor.GREEN + " multiplier is now set to " + ChatColor.WHITE + args[1] + ".");
+								}
+								//If the multiplier is negative
+								else
+									sender.sendMessage(ChatColor.RED + "The multiplier must be positive.");
+							}
+							//If there is no record of the player being requested
+							else
+								sender.sendMessage(ChatColor.RED + "There is no record of a player named " + args[1]);
+						}
+						//If the number of args is wrong
+						else
+							sender.sendMessage(ChatColor.RED + "/honor setmultiplier <player> <multiplier>");
+					}
+					//Else if it's a player ignore the command. Too powerful.
+					else
+						return true;
+				}
 				return true;
 			}
 			//If the root command has been called by a player

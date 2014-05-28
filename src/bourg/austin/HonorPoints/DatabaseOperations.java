@@ -58,7 +58,7 @@ public class DatabaseOperations
 	{
 		try
 		{
-			PreparedStatement getPlayerDataStatement = plugin.getConnection().prepareStatement("SELECT * FROM player_currency_data WHERE player = ?");
+			PreparedStatement getPlayerDataStatement = plugin.getConnection().prepareStatement("SELECT currency FROM player_currency_data WHERE player = ?");
 			getPlayerDataStatement.setString(1, player.getName());
 			
 			ResultSet result = getPlayerDataStatement.executeQuery();
@@ -93,4 +93,49 @@ public class DatabaseOperations
 			e.printStackTrace();
 		}
 	}
+	
+	public static synchronized void setMultiplier(OfflinePlayer player, double multiplier)
+	{
+		try
+		{
+			PreparedStatement setPlayerDataStatement = plugin.getConnection().prepareStatement("UPDATE player_currency_data SET multiplier = ? WHERE player = ?");
+			setPlayerDataStatement.setDouble(1, multiplier);
+			setPlayerDataStatement.setString(2, player.getName());
+
+			setPlayerDataStatement.executeUpdate();
+			setPlayerDataStatement.close();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public static synchronized double getMultiplier(OfflinePlayer player)
+	{
+		try
+		{
+			PreparedStatement getPlayerDataStatement = plugin.getConnection().prepareStatement("SELECT multiplier FROM player_currency_data WHERE player = ?");
+			getPlayerDataStatement.setString(1, player.getName());
+			
+			ResultSet result = getPlayerDataStatement.executeQuery();
+			
+			if (result.next())
+				return result.getInt("multiplier");
+			return -1;
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
+	public static synchronized void giveCurrency(OfflinePlayer player, int currency, boolean multiplier)
+	{
+		if (multiplier)
+			setCurrency(player, getCurrency(player) + (int)(currency * getMultiplier(player)));
+		else
+			setCurrency(player, getCurrency(player) + currency);
+	}	
 }

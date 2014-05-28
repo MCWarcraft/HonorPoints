@@ -19,7 +19,7 @@ public class HonorPoints extends JavaPlugin
 		checkDatabase();
 		
 		//Set event listeners
-		this.getServer().getPluginManager().registerEvents(new MyListener(this), this);
+		this.getServer().getPluginManager().registerEvents(new MyListener(), this);
 		
 		//Set command executors
 		this.getCommand("honor").setExecutor(new MyCommandExecutor(this));
@@ -69,6 +69,7 @@ public class HonorPoints extends JavaPlugin
 			PreparedStatement openSinglesArenaDataStatement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS player_currency_data" +
 					"( player varchar(17) not null," +
 						"currency int(10) DEFAULT 0," +
+						"multiplier double(4, 2) DEFAULT 1," +
 						"PRIMARY KEY (player) " +
 					")");
 			openSinglesArenaDataStatement.execute();
