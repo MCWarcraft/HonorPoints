@@ -180,7 +180,7 @@ public class MyCommandExecutor implements CommandExecutor
 								if (multiplier > 0)
 								{
 									DatabaseOperations.setMultiplier(Bukkit.getOfflinePlayer(args[1]), multiplier);
-									sender.sendMessage(args[0] + ChatColor.GREEN + " multiplier is now set to " + ChatColor.WHITE + args[1] + ".");
+									sender.sendMessage(args[1] + ChatColor.GREEN + "'s multiplier is now set to " + ChatColor.WHITE + args[2] + ".");
 								}
 								//If the multiplier is negative
 								else
