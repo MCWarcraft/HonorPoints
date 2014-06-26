@@ -165,9 +165,7 @@ public class MyCommandExecutor implements CommandExecutor
 				//If the sender is trying to set the multipler
 				else if (args[0].equalsIgnoreCase("setmultiplier"))
 				{
-					//If the sender isn't a player
-					if (!(sender instanceof Player))
-					{
+
 						//If there are enough args
 						if (args.length == 3)
 						{
@@ -193,10 +191,6 @@ public class MyCommandExecutor implements CommandExecutor
 						//If the number of args is wrong
 						else
 							sender.sendMessage(ChatColor.RED + "/honor setmultiplier <player> <multiplier>");
-					}
-					//Else if it's a player ignore the command. Too powerful.
-					else
-						return true;
 				}
 				return true;
 			}

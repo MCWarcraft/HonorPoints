@@ -25,6 +25,8 @@ public class HonorPoints extends JavaPlugin
 		this.getCommand("honor").setExecutor(new MyCommandExecutor(this));
 		
 		DatabaseOperations.initialize(this);
+		
+		System.out.print("HonorPoints loaded succesfully.");
 	}
 	
 	public void onDisable()
