@@ -87,8 +87,6 @@ public class DatabaseOperations
 			
 			if (plugin.getServer().getPlayer(player.getName()) != null)
 				Bukkit.getServer().getPluginManager().callEvent(new OnlinePlayerCurrencyUpdateEvent(plugin.getServer().getPlayer(player.getName())));
-			
-			randy.spawnutility.main.SetHonor(player.getName(), currency);
 		}
 		catch (SQLException e)
 		{
@@ -107,7 +105,8 @@ public class DatabaseOperations
 			setPlayerDataStatement.executeUpdate();
 			setPlayerDataStatement.close();
 			
-			randy.spawnutility.main.SetRank(player.getName(), Integer.parseInt(Double.toString(multiplier).split(".")[0]));
+			//TODO: WTF is this line?
+			//randy.spawnutility.main.SetRank(player.getName(), Integer.parseInt(Double.toString(multiplier).split(".")[0]));
 		}
 		catch (SQLException e)
 		{
